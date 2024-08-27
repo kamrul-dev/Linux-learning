@@ -113,3 +113,279 @@
 - `alias [name]='[command]'`: Creates an alias for a command.
 - `chmod +x [script.sh]`: Makes a shell script executable.
 - `./[script.sh]`: Runs an executable script.
+
+==========================================================================
+# Ubuntu User Management Guide
+
+This guide provides a detailed overview of user management in Ubuntu, including commands and explanations for creating, modifying, and managing users and groups.
+
+## 1. Creating a New User
+
+To create a new user in Ubuntu, use the `adduser` command. This will prompt you to set a password and enter additional information for the new user.
+
+```bash
+sudo adduser <username>
+```
+
+Example:
+```bash
+sudo adduser johndoe
+```
+
+This command creates a new user named `johndoe` and sets up a home directory at `/home/johndoe`.
+
+## 2. Assigning a User to a Group
+
+To add a user to a specific group, use the `usermod` command with the `-aG` option. This allows the user to retain membership in other groups while being added to the new group.
+
+```bash
+sudo usermod -aG <groupname> <username>
+```
+
+Example:
+```bash
+sudo usermod -aG sudo johndoe
+```
+
+This adds `johndoe` to the `sudo` group, granting administrative privileges.
+
+## 3. Setting or Changing a User's Password
+
+To set or change a user's password, use the `passwd` command.
+
+```bash
+sudo passwd <username>
+```
+
+Example:
+```bash
+sudo passwd johndoe
+```
+
+This sets or changes the password for the user `johndoe`.
+
+## 4. Deleting a User
+
+To delete a user from the system, use the `deluser` command. By default, this does not remove the user's home directory.
+
+```bash
+sudo deluser <username>
+```
+
+Example:
+```bash
+sudo deluser johndoe
+```
+
+To delete a user and their home directory:
+
+```bash
+sudo deluser --remove-home <username>
+```
+
+Example:
+```bash
+sudo deluser --remove-home johndoe
+```
+
+## 5. Viewing User Information
+
+To view a user's ID (UID), group ID (GID), and groups they belong to, use the `id` command.
+
+```bash
+id <username>
+```
+
+Example:
+```bash
+id johndoe
+```
+
+To list all users on the system, use:
+
+```bash
+cat /etc/passwd
+```
+
+## 6. Switching Between Users
+
+To switch to another user account, use the `su` (substitute user) command.
+
+```bash
+su - <username>
+```
+
+Example:
+```bash
+su - johndoe
+```
+
+To execute a single command as another user:
+
+```bash
+sudo -u <username> <command>
+```
+
+Example:
+```bash
+sudo -u johndoe ls /home/johndoe
+```
+
+## 7. Locking and Unlocking a User Account
+
+To lock a user account, preventing them from logging in, use the following command:
+
+```bash
+sudo usermod -L <username>
+```
+
+Example:
+```bash
+sudo usermod -L johndoe
+```
+
+To unlock a user account:
+
+```bash
+sudo usermod -U <username>
+```
+
+Example:
+```bash
+sudo usermod -U johndoe
+```
+
+## 8. Adding and Managing Groups
+
+To create a new group, use the `addgroup` command:
+
+```bash
+sudo addgroup <groupname>
+```
+
+Example:
+```bash
+sudo addgroup developers
+```
+
+To delete a group:
+
+```bash
+sudo delgroup <groupname>
+```
+
+Example:
+```bash
+sudo delgroup developers
+```
+
+To list the groups a user belongs to:
+
+```bash
+groups <username>
+```
+
+Example:
+```bash
+groups johndoe
+```
+
+## 9. Setting User Expiry Date
+
+To set an account expiry date for a user:
+
+```bash
+sudo chage -E <YYYY-MM-DD> <username>
+```
+
+Example:
+```bash
+sudo chage -E 2024-12-31 johndoe
+```
+
+To view account expiry information:
+
+```bash
+sudo chage -l <username>
+```
+
+Example:
+```bash
+sudo chage -l johndoe
+```
+
+## 10. Changing a User’s Shell
+
+To change the default shell for a user:
+
+```bash
+sudo chsh -s <shell> <username>
+```
+
+Example:
+```bash
+sudo chsh -s /bin/zsh johndoe
+```
+
+This sets Zsh as the default shell for `johndoe`.
+
+## 11. Temporary User Privileges (sudo)
+
+To run a command as the root user:
+
+```bash
+sudo <command>
+```
+
+Example:
+```bash
+sudo apt update
+```
+
+To grant a user sudo privileges:
+
+```bash
+sudo usermod -aG sudo <username>
+```
+
+Example:
+```bash
+sudo usermod -aG sudo johndoe
+```
+
+## 12. Monitoring User Activity
+
+To see who is currently logged into the system:
+
+```bash
+who
+```
+
+To see the last login times for users:
+
+```bash
+last <username>
+```
+
+To monitor real-time login attempts:
+
+```bash
+tail -f /var/log/auth.log
+```
+
+---
+
+This guide covers essential commands and tasks for managing users in Ubuntu. Proper user management is critical for system security and efficient administration.
+
+
+
+
+
+
+
+
+
+
+
+
+
